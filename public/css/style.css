@@ -1,0 +1,149 @@
+.navbar-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.btn-color {
+    background-color: #AE96B0 !important;
+    border-color: #AE96B0 !important;
+    color: white !important;
+    border-radius: 20px !important;
+}
+
+.rounded {
+    border-radius: 15px !important;
+}
+
+.kartu1 {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.219);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    height: 100px;
+    width: 300px;
+    object-fit: cover;
+    background: white;
+    margin: 30px;
+}
+
+.kartu1:hover {
+    transform: scale(1.1);
+    color: rgb(12, 12, 12);
+}
+
+.back {
+    background-color: #f7f0f8;
+}
+
+.heroes {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    border-radius: 25px;
+}
+
+.card-bawah {
+    border-radius: 25px;
+}
+
+.feature-card {
+    border-radius: 15px;
+    transition: all 0.8s ease;
+    padding: 20px;
+    height: 100%;
+
+}
+
+.feature-card:hover {
+    transform: scale(1.1);
+}
+
+.white {
+    background-color: #fcf5f5;
+}
+
+.navi {
+    border-radius: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+
+.category-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.category-item {
+    padding: 8px 16px;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+}
+.category-item:hover {
+    background-color: #AE96B0;
+    color: white;
+}
+.category-item.active {
+    background-color: #AE96B0;
+    color: white;
+}
+
+.doctor-card img {
+    border-radius: 12px;
+}
+
+.doctor-card {
+    border: none;
+    text-align: center;
+    background-color: #fff;
+    transition: all 0.8s ease;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card:hover {
+    transform: scale(1.1);
+}
+
+.doctor-card h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.doctor-card p {
+    color: #6c757d;
+}
+
+.about-content {
+    padding-left: 2rem;
+}
+
+.feature-list {
+    margin: 2rem 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: 500;
+
+}
+
+.feature-item i {
+    font-size: 1.2rem;
+}
+
+.text-color {
+    color: #AE96B0;
+}
+
+.text-bg{
+    background-color: #AE96B0 !important;
+}
+
+ 
