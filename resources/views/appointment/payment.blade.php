@@ -88,7 +88,7 @@
                 color: #721c24;
             }
 
-            /* Section Title */
+
             .section-title {
                 position: relative;
                 margin-bottom: 20px;
@@ -104,6 +104,22 @@
                 width: 60px;
                 height: 3px;
                 background-color: var(--primary-color);
+            }
+
+            .section-dd {
+                position: relative;
+                margin-bottom: 20px;
+                font-weight: 700;
+                color: var(--secondary-color);
+            }
+
+            .section-dd:after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 60px;
+                height: 3px;
             }
 
             /* Buttons */
@@ -270,13 +286,11 @@
 
         <!-- Appointment List -->
         <div class="dashboard-card">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-4">
                 <div class="">
-                <a href="{{ route('appointment.detail') }}" class="section-title">History Appointment</a>
+                <a href="{{ route('appointment.detail') }}" class="section-dd">History Appointment</a>
                     <a href="{{ route('appointment.payment') }}" class="section-title ms-3">Payment</a>
                 </div>
-                <a href="{{ route('appointment.export_patient') }}" class="btn btn-success mb-3"><i
-                    class="fas fa-file-excel me-1"></i>Export to Excel</a>
                 </div>
             <div class="table-responsive">
                 <table class="appointment-table">
@@ -310,9 +324,6 @@
                                     <a href="{{ route('appointment.qr', $apt->id) }}" class="btn btn-primary mb-3">
                                         <i class="fa-solid fa-money-check me-1"></i> Bayar
                                     </a>
-
-                                    <a href="{{ route('appointment.export.pdf', $apt->id) }}" class="btn btn-danger mb-3"><i
-                                            class="fas fa-file-pdf me-1"></i>Export to Pdf</a>
                                 </td>
                             </tr>
                         @endforeach

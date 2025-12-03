@@ -106,6 +106,22 @@
                     background-color: var(--primary-color);
                 }
 
+                 .section-dd {
+                position: relative;
+                margin-bottom: 20px;
+                font-weight: 700;
+                color: var(--secondary-color);
+            }
+
+            .section-dd:after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 60px;
+                height: 3px;
+            }
+
                 /* Buttons */
                 .action-btn {
                     padding: 5px 10px;
@@ -273,7 +289,7 @@
             <div class="d-flex justify-content-between">
                     <div class="">
                     <a href="{{ route('appointment.detail') }}" class="section-title">History Appointment</a>
-                        <a href="{{ route('appointment.payment') }}" class="section-title ms-3">Payment</a>
+                        <a href="{{ route('appointment.payment') }}" class="section-dd ms-3">Payment</a>
                     </div>
                     <a href="{{ route('appointment.export_patient') }}" class="btn btn-success mb-3"><i
                         class="fas fa-file-excel me-1"></i>Export to Excel</a>
