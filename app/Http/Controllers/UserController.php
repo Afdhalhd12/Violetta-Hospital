@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -327,5 +328,46 @@ class UserController extends Controller
     public function export()
     {
         return Excel::download(new UserExport, 'users.xlsx');
+    }
+
+    public function dataForDatatables()
+    {
+        //siapkan query eloquent dari model movie
+        $doctor = User::where('role', 'doctor');
+        // DataTables::of($movies) : menyiapkan data untuk datatables, data diambil dari $movie
+        return DataTables::of($doctor)
+            ->addIndexColumn() //memberikan nomor 1,2,3 di column table
+            //addColumn() : menambahkan data selain dari table movies, digunakan untuk button aksi dan data yang perlu di manipulasi
+            ->addColumn('imgPoster', function ($data) {
+                $urlImage = asset('storage') . "/" . $data['photo'];
+                //Menambahkan data baru bernama imgPoster dengan hasil tag img yang link nya udah nyambung ke storage. "' untuk konten ke variable
+                return '<img src="' . $urlImage . '" style="width:130px;">';
+            })
+            ->addColumn('role', function ($data) {
+                //membuat data role yang akan mengembalikan badge warnaa sesuai Status
+                if ($data->role == "doctor") {
+                    return '<span class="badge badge-success">Doctor</span>';
+                } else {
+                    return '<span class="badge badge-secondary">Admin</span>';
+                }
+            })
+            ->addColumn('specialization', function ($data) {
+                //membuat data role yang akan mengembalikan badge warnaa sesuai Status
+                return $data->specialization->specialist;
+            })
+            ->addColumn('buttons', function ($data) {
+                $btnEdit = '<a href="' . route('admin.doctor.edit', $data['id']) . '" class="btn btn-sm btn-outline-primary me-1 mb-2"><i class="fas fa-edit"></i></a>';
+                $btnDelete = '<form action="' . route('admin.doctor.delete', $data['id']) . '" method="POST">' .
+                    csrf_field() .
+                    method_field('DELETE') .
+                    '<button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            <i class="fas fa-trash"></i>
+</button>
+                        </form>';
+                return '<div class="d-flex justify-content-center flex-wrap gap-2">' . $btnEdit . $btnDelete . '</div>';
+            })
+            //rawColumns([]) : Mendaftarkan coloumn yang dibuat di addColumn
+            ->rawColumns(['imgPoster', 'role', 'specialization', 'buttons'])
+            ->make(true); //Mengubah query menjadi JSON (fomat yang bisa di baca datatables)
     }
 }

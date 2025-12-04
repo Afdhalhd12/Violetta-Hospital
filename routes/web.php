@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Route;
 route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('/filter-doctor', [UserController::class, 'filterDoctor'])->name('filter.doctor');
 
-
-
 Route::get('/signup', function () {
     return view('signup');
 })->name('signup');

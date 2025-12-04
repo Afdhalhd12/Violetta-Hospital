@@ -158,10 +158,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="doctorTable">
                                         <thead>
                                             <tr>
-                                                <th>*</th>
+                                                <th>No</th>
                                                 <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Email</th>
@@ -172,38 +172,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             @foreach(  $users as $key => $item)
-                                             <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                @if($item->role == 'doctor')
-                                                <td><img src="{{ asset('storage/' . $item->photo) }}" alt="Foto Dokter" width="100" style="border-radius: 5px"></td>
-                                                @elseif($item->role == 'admin')
-                                                <td><img src="{{ asset('images/images (1).png') }}" width="100" style="border-radius: 5px"></td>
-                                                @endif
-                                                <td>{{ $item['name'] }}</td>
-                                                <td>{{ $item['email'] }}</td>
-                                                <td> Rp. {{ number_format($item['doctor_fee'], 0, ',', '.') ?? '' }}</td>
-                                                @if($item->role == 'admin')
-                                                    <td><span class="badge badge-info">{{ ucwords($item['role']) }}</span></td>
-                                                @else
-                                                    <td><span class="badge badge-success">{{ ucwords($item['role']) }}</span></td>
-                                                @endif
-                                                    <td>{{ $item['specialization']['specialist']}}</td>
 
-                                                    <td>
-                                                    <a href="{{ route('admin.doctor.edit', $item['id']) }}" class="btn btn-sm btn-outline-primary me-1 mb-2">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('admin.doctor.delete', $item['id']) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-sm btn-outline-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -215,3 +184,29 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+        $(function(){
+            $('#doctorTable').DataTable({
+                //memberi tanda load pas lagi memperoses controller
+                processing: true,
+                //data yang disajikan di proses di controller (server side)
+                serverSide: true,
+                //route untuk menuju controller yang memproses DataTable
+                ajax: "{{ route('admin.doctor.datatables') }}",
+                //menentukan urutan td
+                columns: [
+                    //{ data: namaDataAtauNamaColumn, name: namaDataAtauNamaColumn, orderable: TRUE/FALSE, searchable: TRUE/FALSE }
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                    {data: 'imgPoster', name: 'imgPoster', orderable: false, searchable: false},
+                    {data: 'name', name: 'name', orderable: true, searchable: true},
+                    {data: 'email', name: 'email', orderable: true, searchable: true},
+                    {data: 'doctor_fee', name: 'doctor_fee', orderable: true, searchable: true},
+                    {data: 'role', name: 'role', orderable: true, searchable: true},
+                    {data: 'specialization', name: 'specialization', orderable: true, searchable: true},
+                    {data: 'buttons', name: 'buttons', orderable: false, searchable: false}
+                ]
+            })
+        });
+    </script>
+@endpush

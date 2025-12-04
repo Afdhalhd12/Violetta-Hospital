@@ -311,20 +311,26 @@
                                 <td>{{ $apt->doctor->name }}</td>
                                 <td>{{ $apt->date->format('d M Y') }}</td>
                                 <td>{{ $apt->time->format('H:i') }}</td>
+                                </td>
                                 <td>
                                     <span
                                         class="status-badge
                                         @if ($apt->payment->payment_status == 'pending') status-pending
-                                        @elseif($apt->payment->payment_status == 'confirmed') status-confirmed
+                                        @elseif($apt->payment->payment_status == 'Cancelled') status-cancelled
                                         @endif">
                                         {{ ucfirst($apt->payment->payment_status) }}
                                     </span>
                                 </td>
-                                <td class="d-flex gap-2">
+                                @if ($apt->date->format('d M Y') < date('d M Y'))
+                                <td><p class="text-danger">Dibatalkan</p></td>
+                                @else
+                                    <td class="d-flex gap-2">
                                     <a href="{{ route('appointment.qr', $apt->id) }}" class="btn btn-primary mb-3">
                                         <i class="fa-solid fa-money-check me-1"></i> Bayar
                                     </a>
                                 </td>
+                                @endif
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -353,11 +359,10 @@
 @push('scripts')
     <script>
         function showModal(apt) {
-            // Tentukan kelas status berdasarkan nilai status
             let statusClass = "status-badge ";
             switch (apt.status.toLowerCase()) {
-                case "paid":
-                    statusClass += "status-paid";
+                case "Cancelled":
+                    statusClass += "status-cancelled";
                     break;
                 case "pending":
                     statusClass += "status-pending";

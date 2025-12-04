@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -174,7 +175,7 @@ class AppointmentController extends Controller
     public function showQr(Appointment $appointment)
     {
         $payment = $appointment->payment;
-       $qrData = $payment->invoice_id;
+        $qrData = $payment->invoice_id;
 
         return view('appointment.qr', [
             'appointment' => $appointment,
@@ -237,24 +238,35 @@ public function chartBySpecialization()
         return optional($appointment->doctor->specialization)->specialist ?? 'Tidak ada spesialisasi';
     });
 
-    $labels = $grouped->keys();                 // nama spesialis
-    $data   = $grouped->map->count()->values(); // jumlah appointment per spesialis
 
+    $labels = $grouped->keys();                 // nama spesialis
+    $data   = $grouped->map->count()->values();// jumlah appointment per spesialis
     return response()->json([
         'labels' => $labels,
         'data'   => $data,
     ]);
 }
 
-public function payment(){
+public function payment(appointment $appointment){
     $userId = Auth::id();
+    $today =  carbon::today();
+
         $appointments = Appointment::with('doctor')
         ->whereHas('payment', function($q){
-            $q->where('payment_status', 'pending');
+            $q->whereIn('payment_status', ['pending', 'Cancelled']);
         })
             ->where('user_id', $userId)
             ->orderBy('date', 'asc')
             ->get();
+
+        foreach($appointments as $appointment){
+        if($appointment->date < $today)
+                $appointment->payment->update([
+                    'payment_status' => 'Cancelled'
+                ]);
+        }
+
+
         return view('appointment.payment', compact('appointments'));
 }
 

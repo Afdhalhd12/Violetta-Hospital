@@ -17,6 +17,8 @@
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    {{-- CDN CSS Datatables --}}
+    <link href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css" rel="stylesheet">
     @stack('style')
     <style>
         :root {
@@ -229,37 +231,37 @@
 
                 <!-- Navigation -->
                 <ul class="nav flex-column">
-    <li class="nav-item text-uppercase text-white-50 small mt-2 mb-1 px-3">Management</li>
+                    <li class="nav-item text-uppercase text-white-50 small mt-2 mb-1 px-3">Management</li>
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('admin.doctor.index') ? 'active' : '' }}"
-            href="{{ route('admin.doctor.index') }}">
-            <i class="fas fa-user-md"></i> Doctor
-        </a>
-    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.doctor.index') ? 'active' : '' }}"
+                            href="{{ route('admin.doctor.index') }}">
+                            <i class="fas fa-user-md"></i> Doctor
+                        </a>
+                    </li>
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('admin.specialization.*') ? 'active' : '' }}"
-            href="{{ route('admin.specialization.index') }}">
-            <i class="fa-solid fa-notes-medical"></i> Specialists
-        </a>
-    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.specialization.*') ? 'active' : '' }}"
+                            href="{{ route('admin.specialization.index') }}">
+                            <i class="fa-solid fa-notes-medical"></i> Specialists
+                        </a>
+                    </li>
 
-    <li class="nav-item text-uppercase text-white-50 small mt-3 mb-1 px-3">General</li>
+                    <li class="nav-item text-uppercase text-white-50 small mt-3 mb-1 px-3">General</li>
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('admin.doctor.dashboard') || request()->routeIs('admin.doctor.tickets.chart') ? 'active' : '' }}"
-            href="{{ route('admin.doctor.dashboard') }}">
-            <i class="fas fa-chart-bar"></i> Statistic
-        </a>
-    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.doctor.dashboard') || request()->routeIs('admin.doctor.tickets.chart') ? 'active' : '' }}"
+                            href="{{ route('admin.doctor.dashboard') }}">
+                            <i class="fas fa-chart-bar"></i> Statistic
+                        </a>
+                    </li>
 
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#">
-            <i class="fas fa-chart-line"></i> Reports
-        </a>
-    </li>
-</ul>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            <i class="fas fa-chart-line"></i> Reports
+                        </a>
+                    </li>
+                </ul>
                 <!-- Footer Sidebar -->
                 <div class="mt-auto text-center small text-light p-3">
                     <hr class="border-light opacity-50">
@@ -335,6 +337,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
     </script>
+    {{-- CDN JS DATATABLES --}}
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
     <!-- MDB UI Kit JS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.umd.min.js"></script>
     {{-- ChartJS --}}
